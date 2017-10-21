@@ -72,7 +72,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ButtonImage}">
                     <StackPanel Height="Auto" Orientation="Horizontal">
-                        <Image Source="{TemplateBinding ImagePath}"  Width="24" Height="24" Stretch="Fill"/>
+                        <Image Source="{Binding Path=ImagePath, RelativeSource={RelativeSource TemplatedParent}}" Width="24" Height="24" Stretch="Fill"/>
                         <TextBlock Text="{TemplateBinding Text}"  HorizontalAlignment="Left" Foreground="{DynamicResource TaskButtonTextBrush}" FontWeight="Bold"  Margin="5,0,0,0" VerticalAlignment="Center" FontSize="12" />
                     </StackPanel>
                 </ControlTemplate>
