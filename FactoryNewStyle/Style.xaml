@@ -6,13 +6,19 @@
     <FontFamily x:Key="PTSans">pack://application:,,,/Fonts/#PT Sans</FontFamily>
     <FontFamily x:Key="Nosf">pack://application:,,,/Fonts/#Nosfier</FontFamily>
 
+    <SolidColorBrush x:Key="Red" Color="#FF0000"/>
+    <SolidColorBrush x:Key="DarkGrey" Color="#BBBBBB"/>
+    <SolidColorBrush x:Key="LightGrey" Color="#EEEEEE"/>
+    <SolidColorBrush x:Key="LightForeground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="DarkForeground" Color="#000000"/>
+
     <Style TargetType="local:MainWindow">
         <Setter Property="FontFamily" Value="PTSans"></Setter>
         <Setter Property="FontSize" Value="12"></Setter>
     </Style>
 
     <Style TargetType="TabItem">
-        <Setter Property="Foreground" Value="#fff"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource LightForeground}"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">
@@ -21,11 +27,11 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Panel" Property="Background" Value="Red" />
+                            <Setter TargetName="Panel" Property="Background" Value="{StaticResource Red}" />
 
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
-                            <Setter TargetName="Panel" Property="Background" Value="#aaa" />
+                            <Setter TargetName="Panel" Property="Background" Value="{StaticResource DarkGrey}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -34,8 +40,8 @@
     </Style>
 
     <Style TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="#aaa"></Setter>
-        <Setter Property="Foreground" Value="#fff"></Setter>
+        <Setter Property="Background" Value="{StaticResource DarkGrey}"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource LightForeground}"></Setter>
         <Setter Property="Margin" Value="1"></Setter>
         <Setter Property="Template">
 
@@ -53,7 +59,7 @@
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="#aaa" />
+                            <Setter Property="Background" Value="{StaticResource DarkGrey}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -61,7 +67,50 @@
         </Setter>
     </Style>
 
+    <Style TargetType="{x:Type local:ButtonImage}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ButtonImage}">
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <Image Source="{TemplateBinding ImagePath}"  Width="24" Height="24" Stretch="Fill"/>
+                        <TextBlock Text="{TemplateBinding Text}"  HorizontalAlignment="Left" Foreground="{DynamicResource TaskButtonTextBrush}" FontWeight="Bold"  Margin="5,0,0,0" VerticalAlignment="Center" FontSize="12" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="ImageButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{StaticResource DarkGrey}"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource LightForeground}"></Setter>
+        <Setter Property="Margin" Value="1"></Setter>
+        <Setter Property="Template">
 
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border  Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Image RenderOptions.BitmapScalingMode="HighQuality" Source="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="2,0" Height="28"></Image>
+                                <Border Padding="20,10">
+                                    <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Gray" />
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{StaticResource DarkGrey}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style TargetType="{x:Type DatePickerTextBox}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
@@ -163,8 +212,9 @@
         <Setter Property="Foreground" Value="#FF333333"/>
         <Setter Property="IsTodayHighlighted" Value="True"/>
         <Setter Property="SelectedDateFormat" Value="Short"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Background" Value="{StaticResource LightGrey}"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="BorderBrush" Value="{StaticResource LightGrey}"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -199,9 +249,9 @@
                                                 <RowDefinition Height="19*"/>
                                                 <RowDefinition Height="19*"/>
                                             </Grid.RowDefinitions>
-                                            <Border x:Name="Highlight" BorderBrush="#eee" BorderThickness="1" Grid.ColumnSpan="4" CornerRadius="0,0,1,1" Margin="-1" Opacity="0" Grid.Row="0" Grid.RowSpan="4"/>
-                                            <Border x:Name="Background" BorderBrush="#FFFFFFFF" BorderThickness="1" Background="#FF1F3B53" Grid.ColumnSpan="4" CornerRadius=".5" Margin="0,-1,0,0" Opacity="1" Grid.Row="1" Grid.RowSpan="3"/>
-                                            <Border x:Name="BackgroundGradient" BorderBrush="#BF000000" BorderThickness="1" Grid.ColumnSpan="4" CornerRadius=".5" Margin="0,-1,0,0" Opacity="1" Grid.Row="1" Grid.RowSpan="3">
+                                            <Border x:Name="Highlight" BorderBrush="{StaticResource LightGrey}" BorderThickness="1" Grid.ColumnSpan="4" CornerRadius="0,0,1,1" Margin="-1" Opacity="0" Grid.Row="0" Grid.RowSpan="4"/>
+                                            <Border x:Name="Background" BorderBrush="{StaticResource LightGrey}" BorderThickness="1" Background="{StaticResource LightGrey}" Grid.ColumnSpan="4" CornerRadius=".5" Margin="0,-1,0,0" Opacity="1" Grid.Row="1" Grid.RowSpan="3"/>
+                                            <Border x:Name="BackgroundGradient" BorderBrush="{StaticResource LightGrey}" BorderThickness="1" Grid.ColumnSpan="4" CornerRadius=".5" Margin="0,-1,0,0" Opacity="1" Grid.Row="1" Grid.RowSpan="3">
                                                 <Border.Background>
                                                     <LinearGradientBrush EndPoint=".7,1" StartPoint=".7,0">
                                                         <GradientStop Color="#FFFFFFFF" Offset="0"/>
@@ -220,8 +270,8 @@
                                                 </Rectangle.Fill>
                                                 <Rectangle.Stroke>
                                                     <LinearGradientBrush EndPoint="0.48,-1" StartPoint="0.48,1.25">
-                                                        <GradientStop Color="#eee"/>
-                                                        <GradientStop Color="#eee" Offset="1"/>
+                                                        <GradientStop Color="#EEEEEE"/>
+                                                        <GradientStop Color="#EEEEEE" Offset="1"/>
                                                     </LinearGradientBrush>
                                                 </Rectangle.Stroke>
                                             </Rectangle>
@@ -236,7 +286,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Button x:Name="PART_Button" Grid.Column="1" Foreground="{TemplateBinding Foreground}" Focusable="False" HorizontalAlignment="Left" Margin="0" Padding="0" Grid.Row="0" Template="{StaticResource DropDownButtonTemplate}" VerticalAlignment="Top" Width="20"/>
-                            <DatePickerTextBox x:Name="PART_TextBox" Grid.Column="0" Focusable="{TemplateBinding Focusable}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="0"/>
+                            <DatePickerTextBox x:Name="PART_TextBox" BorderThickness="0" Background="{StaticResource LightGrey}" Grid.Column="0"  Focusable="{TemplateBinding Focusable}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Grid.Row="0"/>
                             <Grid x:Name="PART_DisabledVisual" Visibility="Hidden" Grid.ColumnSpan="2" Grid.Column="0" IsHitTestVisible="False" Opacity="0" Grid.Row="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -270,14 +320,14 @@
                     <Border 
           Name="Border"
           Padding="5"
-          Background="#eee" >
+          Background="{StaticResource LightGrey}" >
                         <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Border" Property="Background" Value="#EEEEEE"/>
                             <Setter TargetName="Border" Property="BorderBrush" Value="#EEEEEE"/>
-                            <Setter Property="Foreground" Value="#000"/>
+                            <Setter Property="Foreground" Value="{StaticResource DarkForeground}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -291,15 +341,15 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CheckBox}">
                     <StackPanel Orientation="Horizontal">
-                        <Border x:Name="imageCheckBox" Width="20" CornerRadius="0" Height="20" Margin="0,4,6,4" Background="Red" BorderBrush="#eee" BorderThickness="4"></Border>
+                        <Border x:Name="imageCheckBox" Width="20" CornerRadius="0" Height="20" Margin="0,4,6,4" Background="{StaticResource Red}" BorderBrush="{StaticResource LightGrey}" BorderThickness="4"></Border>
                         <ContentPresenter VerticalAlignment="Center" />
                     </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="imageCheckBox" Property="Background" Value="Red" />
+                            <Setter TargetName="imageCheckBox" Property="Background" Value="{StaticResource Red}" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="False">
-                            <Setter TargetName="imageCheckBox" Property="Background" Value="#eee" />
+                            <Setter TargetName="imageCheckBox" Property="Background" Value="{StaticResource LightGrey}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -319,8 +369,8 @@
 
                         <Border Grid.Row="0"
               BorderThickness="1"
-              BorderBrush="#aaa"
-              Background="#aaa">
+              BorderBrush="{StaticResource DarkGrey}"
+              Background="{StaticResource DarkGrey}">
                             <Label Foreground="White">
                                 <ContentPresenter Margin="4"
                           ContentSource="Header"
@@ -330,7 +380,7 @@
 
                         <Border Grid.Row="1"
               BorderThickness="2,0,2,2"
-              BorderBrush="#aaa">
+              BorderBrush="{StaticResource DarkGrey}">
                             <ContentPresenter Margin="4" />
                         </Border>
 
@@ -341,14 +391,14 @@
     </Style>
 
     <Style TargetType="{x:Type ComboBox}">
-        <Setter Property="Foreground" Value="#000" />
+        <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="6" />
     </Style>
 
 
     <Style TargetType="Expander">
-        <Setter Property="Foreground" Value="#000"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkForeground}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Expander">
@@ -357,24 +407,24 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Name="ContentRow" Height="0"/>
                         </Grid.RowDefinitions>
-                        <Border Name="Border" Grid.Row="0" Background="#aaa" BorderBrush="#eee" BorderThickness="1" CornerRadius="4,4,0,0" >
+                        <Border Name="Border" Grid.Row="0" Background="{StaticResource DarkGrey}" BorderBrush="{StaticResource LightGrey}" BorderThickness="1" CornerRadius="4,4,0,0" >
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="20" />
                                 </Grid.ColumnDefinitions>
-                                <ToggleButton Grid.Column="1" IsChecked="{Binding Path=IsExpanded,Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Background="#eee" />
+                                <ToggleButton Grid.Column="1" IsChecked="{Binding Path=IsExpanded,Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Background="{StaticResource LightGrey}" />
                                 <ContentPresenter Grid.Column="0" Margin="4" ContentSource="Header" RecognizesAccessKey="True" />
                             </Grid>
                         </Border>
-                        <Border Name="Content" Grid.Row="1" Background="#fff" BorderBrush="#fff" BorderThickness="1,0,1,1" CornerRadius="0,0,4,4" >
+                        <Border Name="Content" Grid.Row="1" Background="{StaticResource LightForeground}" BorderBrush="{StaticResource LightForeground}" BorderThickness="1,0,1,1" CornerRadius="0,0,4,4" >
                             <ContentPresenter Margin="4" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsExpanded" Value="True">
                             <Setter TargetName="ContentRow" Property="Height" Value="{Binding ElementName=Content,Path=DesiredHeight}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="#fff"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource LightForeground}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -394,14 +444,14 @@
                     <Border 
           Name="Border"
           Padding="5"
-          Background="#eee" >
+          Background="{StaticResource LightGrey}" >
                         <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Border" Property="Background" Value="#EEEEEE"/>
                             <Setter TargetName="Border" Property="BorderBrush" Value="#EEEEEE"/>
-                            <Setter Property="Foreground" Value="#000"/>
+                            <Setter Property="Foreground" Value="{StaticResource DarkForeground}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -409,7 +459,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="HasParsingError" Value="True">
-                <Setter Property="Foreground" Value="Red" />
+                <Setter Property="Foreground" Value="{StaticResource Red}" />
             </Trigger>
             <Trigger Property="IsMaskCompleted" Value="True">
                 <Setter Property="Foreground" Value="Blue" />
@@ -417,6 +467,7 @@
 
             <Trigger Property="IsMaskFull" Value="True">
                 <Setter Property="Foreground" Value="Green" />
+                <Setter Property="FontWeight" Value="Bold" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -431,11 +482,11 @@
     </DataTemplate>
 
     <Style x:Key="NumericUpDown" TargetType="{x:Type xctk:InputBase}">
-        <Setter Property="Background" Value="#eee" />
-        <Setter Property="BorderBrush" Value="#eee" />
+        <Setter Property="Background" Value="{StaticResource LightGrey}" />
+        <Setter Property="BorderBrush" Value="{StaticResource LightGrey}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="4" />
-        <Setter Property="Foreground" Value="#000" />
+        <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
         <Setter Property="HorizontalContentAlignment" Value="Right" />
         <Setter Property="Focusable"  Value="False" />
         <Setter Property="VerticalContentAlignment" Value="Center" />

@@ -28,6 +28,8 @@
             <Button Click="Button_Click_2">Button 3</Button>
             <Button>Button 4</Button>
             <Button>Button 5</Button>
+            <Button Style="{StaticResource ImageButton}" Tag="/Assets/datepick.png">ImgButton</Button>
+            <local:ButtonImage ImagePath="/Assets/datepick.png" Text="Testar"></local:ButtonImage>
             <ComboBox>
                 <ComboBoxItem>TEstar 1</ComboBoxItem>
                 <ComboBoxItem>TEstar 2</ComboBoxItem>
