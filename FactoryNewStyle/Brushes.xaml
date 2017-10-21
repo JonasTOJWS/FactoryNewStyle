@@ -1,0 +1,58 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Generic brushes -->
+    <SolidColorBrush x:Key="DefaultControlBorderBrush" Color="#FF688CAF"/>
+    <SolidColorBrush x:Key="DefaultControlBackgroundBrush" Color="#FFE3F1FE"/>
+    <SolidColorBrush x:Key="DefaultControlForegroundBrush" Color="#FF10257F"/>
+
+    <!-- DataGrid related brushes -->
+    <SolidColorBrush x:Key="GridLineColorBrush" Color="#FFCCCCCC" />
+    <!--<SolidColorBrush x:Key="AlternateRowBackgroundBrush" Color="#FFE5E5FF"/>-->
+    <SolidColorBrush x:Key="AlternateRowBackgroundBrush" Color="#FFF0F0F0"/>
+    
+    <!-- Header related brushes -->
+    <SolidColorBrush x:Key="HeaderBorderBrush" Color="#88B0E4"/>
+    <SolidColorBrush x:Key="HeaderInnerBorderBrush" Color="#FFFFFF" />
+    <LinearGradientBrush x:Key="HeaderBackgroundBrush" StartPoint="0.5,0.0" EndPoint="0.5,1.0">
+        <GradientStop Color="#FF98BFEB" Offset="0"/>
+        <GradientStop Color="#FFB8D4F2" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="HeaderHighlightedBackgoundBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FFA3CBF7" Offset="0"/>
+        <GradientStop Color="#FFD9E6F9" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <LinearGradientBrush x:Key="HeaderPressedBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FFA3CBF7" Offset="1"/>
+        <GradientStop Color="#FFD9E6F9" Offset="0"/>
+    </LinearGradientBrush>
+
+    <DrawingBrush x:Key="FactoryBrush">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <ImageDrawing>
+                    <ImageDrawing.ImageSource>
+                        <DrawingImage></DrawingImage>
+                    </ImageDrawing.ImageSource>
+                </ImageDrawing>
+                <GeometryDrawing>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry>
+                            
+                        </RectangleGeometry>
+                    </GeometryDrawing.Geometry>
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush>
+                            
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+        
+    </DrawingBrush>
+    
+</ResourceDictionary>

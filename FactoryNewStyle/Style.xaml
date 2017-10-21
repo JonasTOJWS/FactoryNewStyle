@@ -1,0 +1,520 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:FactoryNewStyle"
+                    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+
+    <FontFamily x:Key="PTSans">pack://application:,,,/Fonts/#PT Sans</FontFamily>
+    <FontFamily x:Key="Nosf">pack://application:,,,/Fonts/#Nosfier</FontFamily>
+
+    <Style TargetType="local:MainWindow">
+        <Setter Property="FontFamily" Value="PTSans"></Setter>
+        <Setter Property="FontSize" Value="12"></Setter>
+    </Style>
+
+    <Style TargetType="TabItem">
+        <Setter Property="Foreground" Value="#fff"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Grid Name="Panel">
+                        <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header"  Margin="20,10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Panel" Property="Background" Value="Red" />
+
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="Panel" Property="Background" Value="#aaa" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#aaa"></Setter>
+        <Setter Property="Foreground" Value="#fff"></Setter>
+        <Setter Property="Margin" Value="1"></Setter>
+        <Setter Property="Template">
+
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Padding="20,10" Background="{TemplateBinding Background}">
+                        <Grid>
+                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Gray" />
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#aaa" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style TargetType="{x:Type DatePickerTextBox}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DatePickerTextBox">
+                    <Grid>
+                        <Grid.Resources>
+                            <SolidColorBrush x:Key="WatermarkBrush" Color="#FFAAAAAA"/>
+                        </Grid.Resources>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" />
+                                    <VisualTransition To="MouseOver" GeneratedDuration="0:0:0.1" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState Name="Normal" />
+                                <VisualState Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="ContentElement" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" To="#FF99C1E2" Duration="0"/>
+                                        <ColorAnimation Storyboard.TargetName="watermark_decorator" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" To="#FF99C1E2" Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup Name="WatermarkStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState Name="Unwatermarked" />
+                                <VisualState Name="Watermarked">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ContentElement" Storyboard.TargetProperty="Opacity" To="0" Duration="0" />
+                                        <DoubleAnimation Storyboard.TargetName="PART_Watermark" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup Name="FocusStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState Name="Unfocused" />
+                                <VisualState Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="FocusVisual" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+
+                        <Border x:Name="Border" 
+                            Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}"
+                            CornerRadius="1" 
+                            Opacity="1">
+                            <Grid x:Name="WatermarkContent"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Border x:Name="ContentElement" BorderThickness="1">
+                                    <Border.BorderBrush>
+                                        <SolidColorBrush Color="#FFFFFFFF"/>
+                                    </Border.BorderBrush>
+                                </Border>
+                                <Border x:Name="watermark_decorator" BorderThickness="1">
+                                    <Border.BorderBrush>
+                                        <SolidColorBrush Color="#FFFFFFFF"/>
+                                    </Border.BorderBrush>
+                                    <ContentControl x:Name="PART_Watermark"
+                                                    Opacity="0"
+                                                    Focusable="False"
+                                                    IsHitTestVisible="False"
+                                                    Padding="2">
+                                        <ContentControl.Template>
+                                            <ControlTemplate>
+                                                <TextBlock Text=""/>
+                                            </ControlTemplate>
+                                        </ContentControl.Template>
+                                    </ContentControl>
+                                </Border>
+                                <ScrollViewer x:Name="PART_ContentHost" 
+                                          Margin="0"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                <Border x:Name="FocusVisual" BorderBrush="#FF45D6FA" CornerRadius="1" Opacity="0" IsHitTestVisible="False"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type DatePicker}">
+        <Setter Property="Foreground" Value="#FF333333"/>
+        <Setter Property="IsTodayHighlighted" Value="True"/>
+        <Setter Property="SelectedDateFormat" Value="Short"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DatePicker}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_DisabledVisual"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="PART_Root" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <Grid.Resources>
+                                <SolidColorBrush x:Key="DisabledBrush" Color="#A5FFFFFF"/>
+                                <ControlTemplate x:Key="DropDownButtonTemplate" TargetType="{x:Type Button}">
+                                    <Grid>
+
+                                        <Grid Background="#11FFFFFF" FlowDirection="LeftToRight" HorizontalAlignment="Center" Height="18" Margin="0" VerticalAlignment="Center" Width="19">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="20*"/>
+                                                <ColumnDefinition Width="20*"/>
+                                                <ColumnDefinition Width="20*"/>
+                                                <ColumnDefinition Width="20*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="23*"/>
+                                                <RowDefinition Height="19*"/>
+                                                <RowDefinition Height="19*"/>
+                                                <RowDefinition Height="19*"/>
+                                            </Grid.RowDefinitions>
+                                            <Border x:Name="Highlight" BorderBrush="#eee" BorderThickness="1" Grid.ColumnSpan="4" CornerRadius="0,0,1,1" Margin="-1" Opacity="0" Grid.Row="0" Grid.RowSpan="4"/>
+                                            <Border x:Name="Background" BorderBrush="#FFFFFFFF" BorderThickness="1" Background="#FF1F3B53" Grid.ColumnSpan="4" CornerRadius=".5" Margin="0,-1,0,0" Opacity="1" Grid.Row="1" Grid.RowSpan="3"/>
+                                            <Border x:Name="BackgroundGradient" BorderBrush="#BF000000" BorderThickness="1" Grid.ColumnSpan="4" CornerRadius=".5" Margin="0,-1,0,0" Opacity="1" Grid.Row="1" Grid.RowSpan="3">
+                                                <Border.Background>
+                                                    <LinearGradientBrush EndPoint=".7,1" StartPoint=".7,0">
+                                                        <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                                        <GradientStop Color="#F9FFFFFF" Offset="0.375"/>
+                                                        <GradientStop Color="#E5FFFFFF" Offset="0.625"/>
+                                                        <GradientStop Color="#C6FFFFFF" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                            </Border>
+                                            <Rectangle Grid.ColumnSpan="4" Grid.RowSpan="1" StrokeThickness="1">
+                                                <Rectangle.Fill>
+                                                    <LinearGradientBrush EndPoint="0.3,-1.1" StartPoint="0.46,1.6">
+                                                        <GradientStop Color="#FF4084BD"/>
+                                                        <GradientStop Color="#FFAFCFEA" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Rectangle.Fill>
+                                                <Rectangle.Stroke>
+                                                    <LinearGradientBrush EndPoint="0.48,-1" StartPoint="0.48,1.25">
+                                                        <GradientStop Color="#eee"/>
+                                                        <GradientStop Color="#eee" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Rectangle.Stroke>
+                                            </Rectangle>
+                                            <Ellipse Grid.ColumnSpan="4" Fill="#FFFFFFFF" HorizontalAlignment="Center" Height="3" StrokeThickness="0" VerticalAlignment="Center" Width="3"/>
+                                            <Border x:Name="DisabledVisual" BorderBrush="#B2FFFFFF" BorderThickness="1" Grid.ColumnSpan="4" CornerRadius="0,0,.5,.5" Opacity="0" Grid.Row="0" Grid.RowSpan="4"/>
+                                        </Grid>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="PART_Button" Grid.Column="1" Foreground="{TemplateBinding Foreground}" Focusable="False" HorizontalAlignment="Left" Margin="0" Padding="0" Grid.Row="0" Template="{StaticResource DropDownButtonTemplate}" VerticalAlignment="Top" Width="20"/>
+                            <DatePickerTextBox x:Name="PART_TextBox" Grid.Column="0" Focusable="{TemplateBinding Focusable}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="0"/>
+                            <Grid x:Name="PART_DisabledVisual" Visibility="Hidden" Grid.ColumnSpan="2" Grid.Column="0" IsHitTestVisible="False" Opacity="0" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Rectangle Grid.Column="0" Fill="#A5FFFFFF" RadiusY="1" Grid.Row="0" RadiusX="1"/>
+                                <Rectangle Grid.Column="1" Fill="#A5FFFFFF" Height="18" Margin="3,0,3,0" RadiusY="1" Grid.Row="0" RadiusX="1" Width="19"/>
+                                <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_TextBox}" StaysOpen="False"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="false">
+                            <Setter Property="Foreground" TargetName="PART_TextBox" Value="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="{x:Type TextBox}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border 
+          Name="Border"
+          Padding="5"
+          Background="#eee" >
+                        <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="#EEEEEE"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#EEEEEE"/>
+                            <Setter Property="Foreground" Value="#000"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="{x:Type CheckBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <StackPanel Orientation="Horizontal">
+                        <Border x:Name="imageCheckBox" Width="20" CornerRadius="0" Height="20" Margin="0,4,6,4" Background="Red" BorderBrush="#eee" BorderThickness="4"></Border>
+                        <ContentPresenter VerticalAlignment="Center" />
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="imageCheckBox" Property="Background" Value="Red" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="imageCheckBox" Property="Background" Value="#eee" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type GroupBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GroupBox">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0"
+              BorderThickness="1"
+              BorderBrush="#aaa"
+              Background="#aaa">
+                            <Label Foreground="White">
+                                <ContentPresenter Margin="4"
+                          ContentSource="Header"
+                          RecognizesAccessKey="True" />
+                            </Label>
+                        </Border>
+
+                        <Border Grid.Row="1"
+              BorderThickness="2,0,2,2"
+              BorderBrush="#aaa">
+                            <ContentPresenter Margin="4" />
+                        </Border>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ComboBox}">
+        <Setter Property="Foreground" Value="#000" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="6" />
+    </Style>
+
+
+    <Style TargetType="Expander">
+        <Setter Property="Foreground" Value="#000"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Name="ContentRow" Height="0"/>
+                        </Grid.RowDefinitions>
+                        <Border Name="Border" Grid.Row="0" Background="#aaa" BorderBrush="#eee" BorderThickness="1" CornerRadius="4,4,0,0" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="20" />
+                                </Grid.ColumnDefinitions>
+                                <ToggleButton Grid.Column="1" IsChecked="{Binding Path=IsExpanded,Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Background="#eee" />
+                                <ContentPresenter Grid.Column="0" Margin="4" ContentSource="Header" RecognizesAccessKey="True" />
+                            </Grid>
+                        </Border>
+                        <Border Name="Content" Grid.Row="1" Background="#fff" BorderBrush="#fff" BorderThickness="1,0,1,1" CornerRadius="0,0,4,4" >
+                            <ContentPresenter Margin="4" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter TargetName="ContentRow" Property="Height" Value="{Binding ElementName=Content,Path=DesiredHeight}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#fff"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="{x:Type xctk:MaskedTextBox}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border 
+          Name="Border"
+          Padding="5"
+          Background="#eee" >
+                        <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="#EEEEEE"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#EEEEEE"/>
+                            <Setter Property="Foreground" Value="#000"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="HasParsingError" Value="True">
+                <Setter Property="Foreground" Value="Red" />
+            </Trigger>
+            <Trigger Property="IsMaskCompleted" Value="True">
+                <Setter Property="Foreground" Value="Blue" />
+            </Trigger>
+
+            <Trigger Property="IsMaskFull" Value="True">
+                <Setter Property="Foreground" Value="Green" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+
+
+
+
+    <DataTemplate x:Key="DefaultWatermarkTemplate">
+        <ContentControl Content="{Binding}" Foreground="{DynamicResource InputTextDisabled}" Focusable="False" Margin="0,0,3,0" />
+    </DataTemplate>
+
+    <Style x:Key="NumericUpDown" TargetType="{x:Type xctk:InputBase}">
+        <Setter Property="Background" Value="#eee" />
+        <Setter Property="BorderBrush" Value="#eee" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="Foreground" Value="#000" />
+        <Setter Property="HorizontalContentAlignment" Value="Right" />
+        <Setter Property="Focusable"  Value="False" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="TextAlignment" Value="Right" />
+        <Setter Property="WatermarkTemplate" Value="{StaticResource DefaultWatermarkTemplate}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Control">
+                    <xctk:ButtonSpinner x:Name="PART_Spinner"
+                                    IsTabStop="False"
+                                    Background="{TemplateBinding Background}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch"
+                                    AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}"
+                                    ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}"
+                                    ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}">
+                        <xctk:WatermarkTextBox x:Name="PART_TextBox"
+                                          BorderThickness="0"
+                                          Background="Transparent"
+                                          ContextMenu="{TemplateBinding ContextMenu}"
+                                          FontFamily="{TemplateBinding FontFamily}" 
+                                          FontSize="{TemplateBinding FontSize}" 
+                                          FontStretch="{TemplateBinding FontStretch}"
+                                          FontStyle="{TemplateBinding FontStyle}" 
+                                          FontWeight="{TemplateBinding FontWeight}" 
+                                          Foreground="{TemplateBinding Foreground}" 
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          IsUndoEnabled="{Binding IsUndoEnabled, RelativeSource={RelativeSource TemplatedParent}}"
+                                          IsTabStop="{TemplateBinding IsTabStop}"
+                                          MinWidth="20"
+                                          AcceptsReturn="False"
+                                          Padding="{TemplateBinding Padding}"
+                                          AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}"
+                                          AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}"
+                                          TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}"
+                                          TextWrapping="NoWrap" 
+                                          TabIndex="{TemplateBinding TabIndex}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}"
+                                          WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </xctk:ButtonSpinner>
+                    <ControlTemplate.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}"
+                                   Value="False" />
+                                <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}"
+                                   Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsReadOnly"
+                             Value="True"
+                             TargetName="PART_TextBox" />
+                        </MultiDataTrigger>
+                        <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}"
+                               Value="True">
+                            <Setter Property="IsReadOnly"
+                             Value="True"
+                             TargetName="PART_TextBox" />
+                        </DataTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource InputTextDisabled}" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="PART_TextBox" Property="FocusManager.FocusedElement" Value="{Binding ElementName=PART_TextBox}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type xctk:DecimalUpDown}" BasedOn="{StaticResource NumericUpDown}" />
+    <Style TargetType="{x:Type xctk:DoubleUpDown}" BasedOn="{StaticResource NumericUpDown}" />
+    <Style TargetType="{x:Type xctk:IntegerUpDown}" BasedOn="{StaticResource NumericUpDown}" />
+    <Style TargetType="{x:Type xctk:ShortUpDown}" BasedOn="{StaticResource NumericUpDown}" />
+    <Style TargetType="{x:Type xctk:LongUpDown}" BasedOn="{StaticResource NumericUpDown}" />
+    <Style TargetType="{x:Type xctk:ByteUpDown}" BasedOn="{StaticResource NumericUpDown}" />
+    <Style TargetType="{x:Type xctk:SingleUpDown}" BasedOn="{StaticResource NumericUpDown}" />
+
+</ResourceDictionary>

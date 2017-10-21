@@ -1,0 +1,17 @@
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\obj\Debug\App.g.cs
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\obj\Debug\FactoryNewStyle_MarkupCompile.cache
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\obj\Debug\FactoryNewStyle_MarkupCompile.lref
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\bin\Debug\FactoryNewStyle.exe.config
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\bin\Debug\FactoryNewStyle.exe
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\bin\Debug\FactoryNewStyle.pdb
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\obj\Debug\MainWindow.g.cs
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\obj\Debug\MainWindow.baml
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\obj\Debug\Style.baml
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\obj\Debug\FactoryNewStyle.g.resources
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\obj\Debug\FactoryNewStyle.Properties.Resources.resources
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\obj\Debug\FactoryNewStyle.csproj.GenerateResource.Cache
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\obj\Debug\FactoryNewStyle.csproj.CoreCompileInputs.cache
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\obj\Debug\FactoryNewStyle.exe
+C:\Users\jonaswrana\source\repos\FactoryNewStyle\FactoryNewStyle\obj\Debug\FactoryNewStyle.pdb
